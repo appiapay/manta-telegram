@@ -1,0 +1,16 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+python-telegram-bot = "*"
+aiogram = "*"
+qrcode = {version = "*", extras = ["pil"]}
+manta = {editable = true, ref = "experimental", git = "https://github.com/NanoRay/manta-python.git"}
+
+
+[dev-packages]
+
+[requires]
+python_version = "3.7"

@@ -3,6 +3,7 @@ from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
 from manta.store import Store
 from manta.messages import AckMessage, Status
+from decimal import Decimal
 import qrcode
 import io
 import logging
@@ -22,9 +23,10 @@ async def send_welcome(message: types.Message):
 
 @dp.message_handler(commands=['pay'])
 async def qr_code(message: types.Message):
-    amount: float = message.get_args()[0]
-    store = Store("dummystore")
-    reply = await  store.merchant_order_request(amount, "eur")
+    amount: Decimal = Decimal(message.get_args())
+    logger.info ("Creating a request for amount {}".format(amount))
+    store = Store("myapp")
+    reply = await store.merchant_order_request(amount, "EUR")
 
     image = qrcode.make(reply.url)
     global output
@@ -37,6 +39,7 @@ async def qr_code(message: types.Message):
         ack: AckMessage = await store.acks.get()
         if ack.status == Status.PAID:
             await message.reply ("Payment Complete")
+            break
 
 
 if __name__ == '__main__':

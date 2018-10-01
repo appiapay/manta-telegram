@@ -14,14 +14,21 @@ bot = Bot(token='680959216:AAEeTUEDsVJ_wjSG1HwvNEu2_nOB9XS9IU4')
 dp = Dispatcher(bot)
 
 
-
-
 @dp.message_handler(commands=['start', 'help'])
 async def send_welcome(message: types.Message):
-    await message.reply("Hi!\nI'm EchoBot!\nPowered by aiogram.")
+    await message.reply("Hi!\nI'm EchoBot!\nPowered by mac aiogram.")
+
+
+async def wait_confirmation(message: types.Message, store: Store):
+    while True:
+        ack: AckMessage = await store.acks.get()
+        if ack.status == Status.PAID:
+            await message.reply("Payment Complete")
+            return
 
 
 @dp.message_handler(commands=['pay'])
+@dp.async_task
 async def qr_code(message: types.Message):
     amount: Decimal = Decimal(message.get_args())
     logger.info ("Creating a request for amount {}".format(amount))
@@ -34,13 +41,7 @@ async def qr_code(message: types.Message):
     with io.BytesIO() as output:
         image.save(output, format="png")
         await message.reply_photo(output.getvalue(), caption=reply.url)
-
-    while True:
-        ack: AckMessage = await store.acks.get()
-        if ack.status == Status.PAID:
-            await message.reply ("Payment Complete")
-            break
-
+        await wait_confirmation(message, store)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

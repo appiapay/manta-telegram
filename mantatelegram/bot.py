@@ -16,7 +16,7 @@ dp = Dispatcher(bot)
 
 @dp.message_handler(commands=['start', 'help'])
 async def send_welcome(message: types.Message):
-    await message.reply("Hi!\nI'm EchoBot!\nPowered by mac aiogram.")
+    await message.reply("Welcome to Appia Pay TestBot")
 
 
 async def wait_confirmation(message: types.Message, store: Store):
@@ -32,7 +32,8 @@ async def wait_confirmation(message: types.Message, store: Store):
 async def qr_code(message: types.Message):
     amount: Decimal = Decimal(message.get_args())
     logger.info ("Creating a request for amount {}".format(amount))
-    store = Store("myapp")
+    store = Store("2bbfb558-0237-4b06-83f6-0e9a5a97b165", host="95.179.183.144")
+    store.mqtt_client.username_pw_set("2bbfb558-0237-4b06-83f6-0e9a5a97b165", "gCkW2EztSAqpLIIUIYyqPw==")
     reply = await store.merchant_order_request(amount, "EUR")
 
     image = qrcode.make(reply.url)

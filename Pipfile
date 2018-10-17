@@ -7,7 +7,7 @@ name = "pypi"
 python-telegram-bot = "*"
 aiogram = "*"
 qrcode = {version = "*", extras = ["pil"]}
-manta = {editable = true, path = "./../manta-python"}
+manta = {editable = true, git = "ssh://git@github.com/NanoRay/manta-python.git"}
 
 [dev-packages]
 

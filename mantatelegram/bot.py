@@ -7,10 +7,11 @@ from decimal import Decimal
 import qrcode
 import io
 import logging
+import mantatelegram.settings as settings
 
 logger = logging.getLogger(__name__)
 
-bot = Bot(token='680959216:AAEeTUEDsVJ_wjSG1HwvNEu2_nOB9XS9IU4')
+bot = Bot(token=settings.BOT_TOKEN)
 dp = Dispatcher(bot)
 
 
@@ -25,6 +26,9 @@ async def wait_confirmation(message: types.Message, store: Store):
         if ack.status == Status.PAID:
             await message.reply("Payment Complete")
             return
+        elif ack.status == Status.INVALID:
+            await message.reply("Invalid Transaction: {}".format(ack.memo))
+            return
 
 
 @dp.message_handler(commands=['pay'])
@@ -32,8 +36,8 @@ async def wait_confirmation(message: types.Message, store: Store):
 async def qr_code(message: types.Message):
     amount: Decimal = Decimal(message.get_args())
     logger.info ("Creating a request for amount {}".format(amount))
-    store = Store("2bbfb558-0237-4b06-83f6-0e9a5a97b165", host="95.179.183.144")
-    store.mqtt_client.username_pw_set("2bbfb558-0237-4b06-83f6-0e9a5a97b165", "gCkW2EztSAqpLIIUIYyqPw==")
+    store = Store(settings.MANTA_APP_ID, host=settings.MANTA_HOST)
+    store.mqtt_client.username_pw_set(settings.MANTA_APP_ID, settings.MANTA_APP_TOKEN)
     reply = await store.merchant_order_request(amount, "EUR")
 
     image = qrcode.make(reply.url)

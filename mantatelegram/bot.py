@@ -7,7 +7,7 @@ from decimal import Decimal
 import qrcode
 import io
 import logging
-from . import settings
+import mantatelegram.settings as settings
 
 logger = logging.getLogger(__name__)
 

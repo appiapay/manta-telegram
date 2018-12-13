@@ -41,7 +41,6 @@ async def qr_code(message: types.Message):
     reply = await store.merchant_order_request(amount, "EUR")
 
     image = qrcode.make(reply.url)
-    global output
 
     with io.BytesIO() as output:
         image.save(output, format="png")

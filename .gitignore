@@ -1,3 +1,6 @@
 .idea
 mantatelegram/__pycache__
 secrets.py
+/manta_telegram
+/dist
+/.env

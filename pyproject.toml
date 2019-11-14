@@ -17,7 +17,7 @@ python-dotenv = "^0.10.3"
 [tool.poetry.dev-dependencies]
 
 [tool.poetry.scripts]
-manta_telegram= 'manta_telegram:bot.run'
+mtbot= 'manta_telegram:bot.run'
 
 [build-system]
 requires = ["poetry>=0.12"]

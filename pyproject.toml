@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "manta-telegram"
+version = "0.1.0"
+description = "Manta Telegram Bot"
+authors = ["Alessandro Viganò <alessandro@appia.co>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+python-telegram-bot = "^12.2.0"
+aiogram = "^2.4"
+qrcode = "^6.1"
+manta = {git = "https://github.com/appiapay/manta-python.git"}
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.scripts]
+manta-telegram= 'mantatelegram:bot'
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

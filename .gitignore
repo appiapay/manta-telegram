@@ -2,3 +2,4 @@
 manta_telegram/__pycache__
 secrets.py
 /dist
+/docker

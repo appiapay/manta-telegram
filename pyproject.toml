@@ -12,6 +12,7 @@ qrcode = {extras = ["pil"], version = "^6.1"}
 manta = {git = "https://github.com/appiapay/manta-python.git"}
 #Avoid a lot of warnings
 cffi= "~1.12.3"
+python-dotenv = "^0.10.3"
 
 [tool.poetry.dev-dependencies]
 

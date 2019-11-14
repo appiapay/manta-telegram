@@ -7,8 +7,8 @@ from decimal import Decimal
 import qrcode
 import io
 import logging
-import mantatelegram.settings as settings
-from mantatelegram.qr_logo import make_logo_qr
+import manta_telegram.settings as settings
+from manta_telegram.qr_logo import make_logo_qr
 
 logger = logging.getLogger(__name__)
 
@@ -53,7 +53,12 @@ async def qr_code(message: types.Message):
         await message.reply_photo(output.getvalue(), caption=reply.url)
         await wait_confirmation(message, store)
 
-if __name__ == '__main__':
+
+def run():
     logging.basicConfig(level=logging.INFO)
     executor.start_polling(dp)
+
+
+if __name__ == '__main__':
+    run()
 

@@ -57,7 +57,7 @@ async def qr_code(message: types.Message):
             make_logo_qr(reply.url, logo, output)
         # image.save(output, format="png")
         await message.reply_photo(output.getvalue(),
-                                  caption=f'<a href="http://{settings.MANTA_HOST}/manta/{store.session_id}">'
+                                  caption=f'<a href="{settings.API_BASEURL}/manta/{store.session_id}">'
                                           f'{reply.url}</a>', parse_mode='HTML')
         await wait_confirmation(message, store)
 

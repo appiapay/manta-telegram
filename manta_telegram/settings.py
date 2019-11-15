@@ -8,3 +8,6 @@ MANTA_APP_ID = os.environ['MANTA_APP_ID']
 MANTA_APP_TOKEN = os.environ['MANTA_APP_TOKEN']
 MANTA_HOST = os.environ['MANTA_HOST']
 LOGO = os.getenv('LOGO', '')
+
+#TODO: Fix URL handling
+API_BASEURL = os.getenv('API_BASEURL', 'https://developer.beappia.com')

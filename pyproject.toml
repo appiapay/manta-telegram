@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "manta-telegram"
-version = "0.2.0"
+version = "0.2.1"
 description = "Manta Telegram Bot"
 authors = ["Alessandro Viganò <alessandro@appia.co>"]
 

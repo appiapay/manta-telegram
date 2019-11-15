@@ -1,3 +1,5 @@
+from importlib.resources import path
+
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
@@ -45,12 +47,18 @@ async def qr_code(message: types.Message):
     store.mqtt_client.username_pw_set(settings.MANTA_APP_ID, settings.MANTA_APP_TOKEN)
     reply = await store.merchant_order_request(amount, "EUR")
 
-    logo = settings.__dict__.get("LOGO", "")
+    logo = settings.LOGO
 
     with io.BytesIO() as output:
-        make_logo_qr(reply.url, logo, output)
+        if logo == "":
+            with path('manta_telegram', "appia-circle.png") as fn:
+                make_logo_qr(reply.url, fn, output)
+        else:
+            make_logo_qr(reply.url, logo, output)
         # image.save(output, format="png")
-        await message.reply_photo(output.getvalue(), caption=reply.url)
+        await message.reply_photo(output.getvalue(),
+                                  caption=f'<a href="http://{settings.MANTA_HOST}/manta/{store.session_id}">'
+                                          f'{reply.url}</a>', parse_mode='HTML')
         await wait_confirmation(message, store)
 
 

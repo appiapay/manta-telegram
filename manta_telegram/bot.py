@@ -24,7 +24,7 @@ async def send_welcome(message: types.Message):
         "** Appia Donation Bot **\n"
         "This bot is powered by Appia and Manta protocol. "
         "You need a Manta-enabled wallet (ex. Natrium) for paying.\n"
-        "Donations will be sent to no profit organizations."
+        "Donations will be sent to non-profit organizations."
         "\n"
         "Donations:"
         "  /pay {euro} - Make a donation - ex. /pay 0.01"
